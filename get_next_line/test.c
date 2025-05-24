@@ -7,7 +7,6 @@ int main(void)
     int fd;
     char *line;
 
-    // Abrir el archivo "1char.txt"
     fd = open("1char.txt", O_RDONLY);
     if (fd == -1)
     {
@@ -15,19 +14,14 @@ int main(void)
         return (1);
     }
 
-    // Leer y mostrar la línea
-    line = get_next_line(fd);
-    if (line)
+    // Leer línea por línea hasta que get_next_line devuelva NULL
+    while ((line = get_next_line(fd)) != NULL)
     {
         printf("Línea leída: %s\n", line);
-        free(line);
-    }
-    else
-    {
-        printf("No se leyó ninguna línea\n");
+        free(line); // Liberar la memoria después de cada lectura
     }
 
-    // Cerrar el archivo
     close(fd);
     return (0);
 }
+
